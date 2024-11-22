@@ -47,7 +47,16 @@ def scrape_album(album_id):
         else:
             genre = 'Unknown'
 
-        if genre == 'Unkown':
+        # generos con menos de 313: punk, metal, synth_based, pop, soul_r_and_b, jazz, country, experimental, noise_and_ambient, world_music 
+        
+        rock = set(['Comedy Rock', 'Heartland Rock', 'Pub Rock', 'Garage Rock', 'Blues Rock', 'Soft Rock', 'Glam Rock', 'Funk Rock', 'Surf Pop', 'Stoner Rock', 'Jangle Pop', 'Rock Opera', 'Rock & Roll', 'Gothic Rock', 'Southern Rock', 'Roots Rock', 'Piano Rock', 'Heavy Psych', 'Space Rock Revival', 'Christian Rock', 'Rock', 'Hard Rock', 'Progressive Rock', 'Post-Grunge', 'Power Pop', 'Groove Metal', 'New Wave', 'Alternative Rock', 'Blues', 'Melodic Hardcore', 'Rockabilly', 'Post-Hardcore', 'Surf Punk', 'Jam Band', 'Merseybeat', 'Electric Blues', 'Folk Rock', 'Psychedelic Rock', 'Jazz-Rock', 'Krautrock', 'Canterbury Scene', 'Latin Rock', 'Symphonic Prog'])
+        alt_rock = set(['Alternative Dance', 'Indie Rock', 'Alt-Pop', 'Post-Britpop', 'Britpop', 'Indie Surf', 'Garage Rock Revival', 'Dance-Punk', 'Grunge', 'Slacker Rock', 'Math Rock', 'Art Rock', 'Acoustic Rock', 'Alternative Metal', 'Nu Metal', 'Geek Rock', 'Experimental Rock', 'Punk', 'Post-Punk Revival', 'Post-Punk', 'Shoegaze', 'Psychedelia', 'Neo-Psychedelia', 'Post-Rock', 'Dream Pop', 'Noise Rock', 'Industrial Rock'])
+        edm = set(['House', 'Techno', 'Acid House', 'Deep House', 'Drum and Bass', 'Big Beat', 'Electro House', 'Trap (EDM)', 'Complextro', 'Nu-Disco', 'Progressive House', 'Dubstep', 'Future Bass', 'Dancehall', 'Electronic Dance Music', 'Footwork', 'Breakbeat Hardcore', 'Electroclash', 'Electro Swing', 'Bitpop', 'Tech House', 'Microhouse', 'Juke', 'Brostep', 'Trap', 'Vapor', 'Future Garage', 'Electropop', 'UK Garage', 'Balearic Beat', 'Electronic', 'Electro', 'Industrial Techno'])
+        alt_pop = set(['Indie Pop', 'Twee Pop', 'Chamber Pop', 'Baroque Pop', 'Folk Pop', 'Bedroom Pop', 'Art Pop', 'Psychedelic Pop', 'Progressive Pop'])
+        hip_hop_and_rap = set(['Hip Hop', 'Southern Hip Hop', 'East Coast Hip Hop', 'West Coast Hip Hop', 'Conscious Hip Hop', 'Gangsta Rap', 'Boom Bap', 'G-Funk', 'Abstract Hip Hop', 'Hardcore Hip Hop', 'Memphis Rap', 'Comedy Rap', 'Instrumental Hip Hop', 'Chipmunk Soul', 'Cloud Rap', 'UK Hip Hop', 'French Hip Hop', 'Horrorcore', 'Trip Hop', 'Trap [EDM]', 'UK Bass', 'Turntablism', 'Industrial Hip Hop'])
+        folk = set(['American Primitivism', 'Avant-Folk', 'Contemporary Folk', 'Indie Folk', 'Chamber Folk', 'Americana', 'Progressive Folk', 'Progressive Bluegrass', 'American Folk Music', 'Psychedelic Folk', 'Folk', 'Singer-Songwriter', 'Roots Reggae', 'Freak Folk'])
+        
+        if genre == 'Unknown' or genre in rock or genre in alt_rock or genre in edm or genre in alt_pop or genre in hip_hop_and_rap or genre in folk:
             return False
 
         # Fetch and save album cover with genre in filename
@@ -61,26 +70,23 @@ def scrape_album(album_id):
         print(f"Image not found for Album ID {album_id}, skipping...")
         return False
 
-#6401 albumes incluyendo unknowns
-
-
 
 # Loop through a range of album IDs
-# successful_scrapes = 0
-# for album_id in range(6001, 7000):  # Adjust range as needed
-#     if scrape_album(album_id):
-#         successful_scrapes += 1
+successful_scrapes = 0
+for album_id in range(6500, 8000):  # Adjust range as needed
+    if scrape_album(album_id):
+        successful_scrapes += 1
 
-#     # Break if we have reached 50,000 successful scrapes
-#     if successful_scrapes >= 50000:
-#         break
+    # Break if we have reached 50,000 successful scrapes
+    if successful_scrapes >= 50000:
+        break
 
-#     # Optional: Delay to avoid hitting the server too quickly
-#     time.sleep(0.5)  # Adjust delay as necessary
+    # Optional: Delay to avoid hitting the server too quickly
+    time.sleep(0.5)  # Adjust delay as necessary
 
-# with open('successful_scrapes.csv', mode='a', newline='') as counter:
-#     writer = csv.writer(counter)
-#     writer.writerow([successful_scrapes])
+with open('successful_scrapes.csv', mode='a', newline='') as counter:
+    writer = csv.writer(counter)
+    writer.writerow([successful_scrapes])
 
 
 def list_prefixes(directory, separator="_", unique=True):
@@ -209,4 +215,4 @@ def sort_albums(separator='_'):
 
     print(f"Total amount of labeled albums: {counter}")
 
-sort_albums()
+# sort_albums()
