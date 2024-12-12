@@ -11,7 +11,7 @@ class MyDataset(Dataset):
         self.path = path
         self.transform = transforms.Compose([
             transforms.Resize((224, 224)),
-            # transforms.RandomHorizontalFlip(),
+            transforms.RandomHorizontalFlip(),
             transforms.ToTensor(),
             transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
         ])
@@ -27,7 +27,7 @@ class MyDataset(Dataset):
     def __len__(self):
         return len(self.dataframe)
 
-labels_df = pd.read_csv('labels.csv')
+labels_df = pd.read_csv('/Users/felipe/Vision/tp_final/Music-Album-Genre-Classifier-Based-on-Album-Cover-Image/labels_300.csv')
 
 train_df, val_df = train_test_split(labels_df, test_size=0.2, stratify=labels_df['label'])
 val_df, test_df = train_test_split(val_df, test_size=0.5, stratify=val_df['label'])
@@ -37,3 +37,5 @@ val_data = MyDataset(val_df, "/Users/felipe/Vision/tp_final/album_covers")
 test_data = MyDataset(test_df, "/Users/felipe/Vision/tp_final/album_covers")
 train_loader = DataLoader(train_data, batch_size=32, shuffle=True)
 val_loader = DataLoader(val_data, batch_size=32, shuffle=True)
+
+mb_train_dataset = MyDataset(train_df, "/Users/felipe/Vision/tp_final/album_covers") # train dataset for training with mini batch
