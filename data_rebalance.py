@@ -188,8 +188,28 @@ def delete_class_undersample(original, new, to_delete=[9, 15], over_limit = [0, 
     print(df)
     return df
 
-df_deleted_undersampled = delete_class_undersample("/home/olivia/Desktop/Vision_Artificial/TP_Final/Music-Album-Genre-Classifier-Based-on-Album-Cover-Image/labels.csv", "/home/olivia/Desktop/Vision_Artificial/TP_Final/Music-Album-Genre-Classifier-Based-on-Album-Cover-Image/labels_deleted_undersampled.csv")
+#df_deleted_undersampled = delete_class_undersample("/home/olivia/Desktop/Vision_Artificial/TP_Final/Music-Album-Genre-Classifier-Based-on-Album-Cover-Image/labels.csv", "/home/olivia/Desktop/Vision_Artificial/TP_Final/Music-Album-Genre-Classifier-Based-on-Album-Cover-Image/labels_deleted_undersampled.csv")
 
-df2 = class_distribution("/home/olivia/Desktop/Vision_Artificial/TP_Final/Music-Album-Genre-Classifier-Based-on-Album-Cover-Image/labels_deleted_undersampled.csv")
-plot_distribution(df2)
+#df2 = class_distribution("/home/olivia/Desktop/Vision_Artificial/TP_Final/Music-Album-Genre-Classifier-Based-on-Album-Cover-Image/labels_deleted_undersampled.csv")
+#plot_distribution(df2)
 
+
+def class300(original, new, to_delete=[9,15], over_limit = [0, 1, 4, 8, 10, 11, 13]):
+    df = pd.read_csv(original, header=0)
+    df.columns = ['image', 'label']
+    df = df[~df['label'].isin(to_delete)]
+
+    #if in over limit, undersample to 300
+    df = df.groupby('label').apply(lambda x: x.sample(300) if x['label'].values[0] in over_limit else x)
+
+    df.reset_index(drop=True, inplace=True)
+    df.to_csv(new, header=False, index=False)
+    print(f"Deleted classes {to_delete} from dataset and undersampled")
+    print(f"New dataset saved to {new}")
+    print("New dataset:")
+    print(df)
+    return df   
+
+df300 = class300("/home/olivia/Desktop/Vision_Artificial/TP_Final/Music-Album-Genre-Classifier-Based-on-Album-Cover-Image/labels.csv", "/home/olivia/Desktop/Vision_Artificial/TP_Final/Music-Album-Genre-Classifier-Based-on-Album-Cover-Image/labels_300.csv")
+df3 = class_distribution("/home/olivia/Desktop/Vision_Artificial/TP_Final/Music-Album-Genre-Classifier-Based-on-Album-Cover-Image/labels_300.csv")
+plot_distribution(df3)
