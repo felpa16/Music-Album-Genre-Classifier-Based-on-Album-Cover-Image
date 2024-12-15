@@ -91,18 +91,26 @@ def class_distribution(filename, prints=False):
         print(df)
     return df
 
+import matplotlib.pyplot as plt
+
 def plot_distribution(df):
+    # Custom x-axis labels
+    custom_labels = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 14, 15, 16]
+    
     plt.bar(df['label'], df['count'])
-    plt.xlabel('Genre')
-    plt.ylabel('Count')
-    plt.title('Genre Distribution')
+    plt.xlabel('Clase')
+    plt.ylabel('Total de muestras')
+    
+    # Set the custom x-axis labels
+    plt.xticks(ticks=range(len(custom_labels)), labels=custom_labels)
+    
     plt.show()
 
 
-df = class_distribution("/home/olivia/Desktop/Vision_Artificial/TP_Final/Music-Album-Genre-Classifier-Based-on-Album-Cover-Image/labels.csv")
-plot_distribution(df)
-print("Original dataset:")
-print(df)
+#df = class_distribution("/home/olivia/Desktop/Vision_Artificial/TP_Final/Music-Album-Genre-Classifier-Based-on-Album-Cover-Image/labels.csv")
+#plot_distribution(df)
+#print("Original dataset:")
+#print(df)
 
 """
 Alternativas de imbalance de clases
@@ -210,6 +218,6 @@ def class300(original, new, to_delete=[9,15], over_limit = [0, 1, 4, 8, 10, 11, 
     print(df)
     return df   
 
-df300 = class300("/home/olivia/Desktop/Vision_Artificial/TP_Final/Music-Album-Genre-Classifier-Based-on-Album-Cover-Image/labels.csv", "/home/olivia/Desktop/Vision_Artificial/TP_Final/Music-Album-Genre-Classifier-Based-on-Album-Cover-Image/labels_300.csv")
-df3 = class_distribution("/home/olivia/Desktop/Vision_Artificial/TP_Final/Music-Album-Genre-Classifier-Based-on-Album-Cover-Image/labels_300.csv")
-plot_distribution(df3)
+#df300 = class300("/home/olivia/Desktop/Vision_Artificial/TP_Final/Music-Album-Genre-Classifier-Based-on-Album-Cover-Image/labels.csv", "/home/olivia/Desktop/Vision_Artificial/TP_Final/Music-Album-Genre-Classifier-Based-on-Album-Cover-Image/labels_300.csv")
+#df3 = class_distribution("/home/olivia/Desktop/Vision_Artificial/TP_Final/Music-Album-Genre-Classifier-Based-on-Album-Cover-Image/labels_300.csv")
+#plot_distribution(df3)
